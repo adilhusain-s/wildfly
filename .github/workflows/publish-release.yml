@@ -7,9 +7,10 @@ name: Build and push WildFly Docker images
 # secrets.REGISTRY_PASSWORD - the user password to authentication before pushing the image
 
 on:
+  workflow_dispatch:
   push:
     tags-ignore:
-      - "26*"
+      - '26*'
 
 jobs:
   image:
@@ -57,8 +58,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v3.2.0
         with:
-          push: true
-          platforms: linux/amd64,linux/arm64
+          push: false
+          platforms: linux/amd64,linux/arm64,linux/ppc64le
           build-args: |
             jdk=${{ matrix.jdk-version }}
             dist=${{ matrix.dist }}
